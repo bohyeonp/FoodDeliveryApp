@@ -18,6 +18,7 @@ import {useAppDispatch} from './src/store';
 import Config from 'react-native-config';
 import orderSlice from './src/slices/order';
 import { NavigationContainer } from "@react-navigation/native";
+import usePermissions from './src/hooks/usePermissions';
 
 export type LoggedInParamList = {
   Orders: undefined;
@@ -38,6 +39,8 @@ function AppInner(){
   const dispatch = useAppDispatch();
   const isLoggedIn = useSelector((state: RootState)=> !!state.user.email)
   const [socket, disconnect] = useSocket();
+
+  usePermissions();
 
   // 앱 실행 시 토큰 있으면 로그인하는 코드
   useEffect(() => {
